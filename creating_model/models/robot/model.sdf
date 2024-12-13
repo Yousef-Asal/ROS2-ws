@@ -311,7 +311,7 @@
                 linear: {x: 0.0}, angular: {z: 0.5}
             </output>
         </plugin>
-                    <plugin filename="libignition-gazebo-triggered-publisher-system.so"
+        <plugin filename="libignition-gazebo-triggered-publisher-system.so"
                 name="ignition::gazebo::systems::TriggeredPublisher">
             <input type="ignition.msgs.Int32" topic="/keyboard/keypress">
                 <match field="data">68</match>

@@ -1,0 +1,589 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+    <world name="elderly_maze">
+        <physics name="1ms" type="ignored">
+            <max_step_size>0.001</max_step_size>
+            <real_time_factor>1.0</real_time_factor>
+        </physics>
+        <plugin
+            filename="libignition-gazebo-physics-system.so"
+            name="ignition::gazebo::systems::Physics">
+        </plugin>
+        <plugin
+            filename="libignition-gazebo-user-commands-system.so"
+            name="ignition::gazebo::systems::UserCommands">
+        </plugin>
+        <plugin
+            filename="libignition-gazebo-scene-broadcaster-system.so"
+            name="ignition::gazebo::systems::SceneBroadcaster">
+        </plugin>
+        <plugin filename="libignition-gazebo-imu-system.so"
+            name="ignition::gazebo::systems::Imu">
+        </plugin>
+        <plugin
+        filename="libignition-gazebo-sensors-system.so"
+        name="ignition::gazebo::systems::Sensors">
+        <render_engine>ogre2</render_engine>
+        </plugin>
+        <light type="directional" name="sun">
+            <cast_shadows>true</cast_shadows>
+            <pose>0 0 10 0 0 0</pose>
+            <diffuse>0.8 0.8 0.8 1</diffuse>
+            <specular>0.2 0.2 0.2 1</specular>
+            <attenuation>
+                <range>1000</range>
+                <constant>0.9</constant>
+                <linear>0.01</linear>
+                <quadratic>0.001</quadratic>
+            </attenuation>
+            <direction>-0.5 0.1 -0.9</direction>
+        </light>
+
+        <model name="ground_plane">
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    </plane>
+                </geometry>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <plane>
+                    <normal>0 0 1</normal>
+                    <size>100 100</size>
+                    </plane>
+                </geometry>
+                <material>
+                    <ambient>0.9 0.9 0.9 1</ambient>
+                    <diffuse>0.9 0.9 0.9 1</diffuse>
+                    <specular>0.9 0.9 0.9 1</specular>
+                </material>
+                </visual>
+            </link>
+            <link name="left_wall">
+                <pose relative_to='__model__'>0 12.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>35 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>35 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='left_wall_joint' type='fixed'>
+                <pose relative_to='left_wall'/>
+                <parent>link</parent>
+                <child>left_wall</child>
+            </joint>
+             <link name="right_wall">
+                <pose relative_to='__model__'>-12.5 -12.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='right_wall_joint' type='fixed'>
+                <pose relative_to='right_wall'/>
+                <parent>link</parent>
+                <child>right_wall</child>
+            </joint>
+            <link name="front_wall">
+                <pose relative_to='__model__'>17.5 0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>25 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>25 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='front_wall_joint' type='fixed'>
+                <pose relative_to='front_wall'/>
+                <parent>link</parent>
+                <child>front_wall</child>
+            </joint>
+            <link name="rear_wall">
+                <pose relative_to='__model__'>-17.5 0.0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>25 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>25 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='rear_wall_joint' type='fixed'>
+                <pose relative_to='rear_wall'/>
+                <parent>link</parent>
+                <child>rear_wall</child>
+            </joint>
+            <link name="wall_1">
+                <pose relative_to='__model__'>-15 -2.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_1_joint' type='fixed'>
+                <pose relative_to='wall_1'/>
+                <parent>link</parent>
+                <child>wall_1</child>
+            </joint>
+            <link name="wall_2">
+                <pose relative_to='__model__'>-15 2.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_2_joint' type='fixed'>
+                <pose relative_to='wall_2'/>
+                <parent>link</parent>
+                <child>wall_2</child>
+            </joint>
+            <link name="wall_3">
+                <pose relative_to='__model__'>-12.5 -5.0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_3_joint' type='fixed'>
+                <pose relative_to='wall_3'/>
+                <parent>link</parent>
+                <child>wall_3</child>
+            </joint>
+            <link name="wall_4">
+                <pose relative_to='__model__'>-12.5 5.0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_4_joint' type='fixed'>
+                <pose relative_to='wall_4'/>
+                <parent>link</parent>
+                <child>wall_4</child>
+            </joint>
+            <link name="wall_5">
+                <pose relative_to='__model__'>-7.5 0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_5_joint' type='fixed'>
+                <pose relative_to='wall_5'/>
+                <parent>link</parent>
+                <child>wall_5</child>
+            </joint>
+            <link name="wall_6">
+                <pose relative_to='__model__'>12.5 0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_6_joint' type='fixed'>
+                <pose relative_to='wall_6'/>
+                <parent>link</parent>
+                <child>wall_6</child>
+            </joint>
+            <link name="wall_7">
+                <pose relative_to='__model__'>-2.5 0 1 0 0 1.5707</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_7_joint' type='fixed'>
+                <pose relative_to='wall_7'/>
+                <parent>link</parent>
+                <child>wall_7</child>
+            </joint>
+            <link name="wall_8">
+                <pose relative_to='__model__'>2.5 -2.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_8_joint' type='fixed'>
+                <pose relative_to='wall_8'/>
+                <parent>link</parent>
+                <child>wall_8</child>
+            </joint>
+            <link name="wall_9">
+                <pose relative_to='__model__'>-2.5 7.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>10 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_9_joint' type='fixed'>
+                <pose relative_to='wall_9'/>
+                <parent>link</parent>
+                <child>wall_9</child>
+            </joint>
+            <link name="wall_10">
+                <pose relative_to='__model__'>0 -7.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_10_joint' type='fixed'>
+                <pose relative_to='wall_10'/>
+                <parent>link</parent>
+                <child>wall_10</child>
+            </joint>
+            <link name="wall_11">
+                <pose relative_to='__model__'>5 2.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>15 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_11_joint' type='fixed'>
+                <pose relative_to='wall_11'/>
+                <parent>link</parent>
+                <child>wall_11</child>
+            </joint>
+            <link name="wall_12">
+                <pose relative_to='__model__'>10 7.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>5 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_12_joint' type='fixed'>
+                <pose relative_to='wall_12'/>
+                <parent>link</parent>
+                <child>wall_12</child>
+            </joint>
+            <link name="wall_13">
+                <pose relative_to='__model__'>7.5 -12.5 1 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>20 0.50 2</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>0.8 0.5 0.3 1</ambient>
+                        <diffuse>0.8 0.5 0.3 1</diffuse>
+                        <specular>0.8 0.5 0.3 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>20 0.50 2</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='wall_13_joint' type='fixed'>
+                <pose relative_to='wall_13'/>
+                <parent>link</parent>
+                <child>wall_13</child>
+            </joint>
+            <link name="finish_line">
+                <pose relative_to='__model__'>-5 -12.5 0 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>5 0.10 0.1</size>
+                        </box>
+                    </geometry>
+                    <!--let's add color to our link-->
+                    <material>
+                        <ambient>1 0 0 1</ambient>
+                        <diffuse>1 0 0 1</diffuse>
+                        <specular>1 0 0 1</specular>
+                    </material>
+                </visual>
+            </link>
+            <joint name='finish_line_joint' type='fixed'>
+                <pose relative_to='finish_line'/>
+                <parent>link</parent>
+                <child>finish_line</child>
+            </joint>
+        </model>
+    <include>
+        <uri>file://robot</uri>
+        <pose>-16 0 0 0 0 0</pose>
+    </include>
+    <include>
+        <uri>file://PatientWheelChair</uri>
+        <name>el_7ag_1</name>
+        <pose>-15 5 0 0 0 1.5707</pose>
+    </include>
+    <include>
+        <uri>file://PatientWheelChair</uri>
+        <name>el_7ag_2</name>
+        <pose>-15 -5 0 0 0 -1.5707</pose>
+    </include>
+    <include>
+        <uri>file://PatientWheelChair</uri>
+        <name>el_7ag_3</name>
+        <pose>0 0 0 0 0 0</pose>
+    </include>
+    <include>
+        <uri>file://PatientWheelChair</uri>
+        <name>el_7ag_4</name>
+        <pose>15 0 0 0 0 3.14</pose>
+    </include>
+    </world>
+</sdf>
